@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #111;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 22px;
+            margin: 30px 0;
+        }
+
+        a.playagain {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 14px 28px;
+            font-size: 20px;
+            text-decoration: none;
+            border: 2px solid #00eaff;
+            border-radius: 8px;
+            color: #00eaff;
+            transition: 0.3s ease-in-out;
+        }
+
+        a.playagain:hover {
+            background-color: #00eaff;
+            color: #111;
+            box-shadow: 0 0 15px #00eaff;
+            transform: scale(1.1);
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>You chose {{som}}</h1>
+
+    <p></p>
+
+    <h1>AI chose {{attack}}</h1>
+
+    <p></p>
+
+    <h1>You {{state}}!</h1>
+
+    <p></p>
+
+    <a class="playagain" href="http://127.0.0.1:5000/">Play again</a>
+
+</body>
+</html>
