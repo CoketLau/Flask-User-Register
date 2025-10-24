@@ -13,14 +13,14 @@ def home():
 def Play(choise):
     PosiblePlays = ["Rock", "Paper", "Scissors"]
     Ran_Choise = random.randint(0, 2)
-    Outcome = "Tie :/"
+    Outcome = "Tie! :/"
 
 
     if choise == "Paper":
         if PosiblePlays[Ran_Choise] == "Rock":
-            Outcome = "win :D"
+            Outcome = "win! :D"
         elif PosiblePlays[Ran_Choise] == "Scissors":
-            Outcome = "loose :("
+            Outcome = "loose! :("
     
 
     elif choise == "Rock":
