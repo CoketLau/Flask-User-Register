@@ -53,5 +53,5 @@ def stopFunc():
 
 
 
-threading.Thread(target=main, daemon=True).start()
-threading.Thread(target=stopFunc, daemon=True).start()
+threading.Thread(target=main, daemon=True).run()
+threading.Thread(target=stopFunc, daemon=True).run()
