@@ -17,19 +17,15 @@ InputsPosibles = [
     'space', 'left', 'right', 'up', 'down',
 
     'comma', 'period', 'slash', 'semicolon', 'backslash', 'equal' ]
+combinaciones = product(InputsPosibles, repeat=KEYS_PER_COMBINATION)
 
 def main():
-    global Cycle_Count, PARAR
-    combinaciones = product(InputsPosibles, repeat=KEYS_PER_COMBINATION)
-
     TOTAL_COMBINACIONES = len(InputsPosibles) ** KEYS_PER_COMBINATION
     print(f"{TOTAL_COMBINACIONES}")
 
     for combo in combinaciones:
         if PARAR:break
         The_comb = ""
-
-        Cycle_Count += 1
         The_comb = " + ".join(combo)
         
 
@@ -53,5 +49,5 @@ def stopFunc():
 
 
 
-threading.Thread(target=main, daemon=True).run()
-threading.Thread(target=stopFunc, daemon=True).run()
+thrd = threading.Thread(target=main).start()
+thrd_two = threading.Thread(target=stopFunc).start()
