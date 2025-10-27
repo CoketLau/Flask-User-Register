@@ -12,7 +12,11 @@ def home():
     else:
         chars = request.args.get("chars")
 
-        return render_template("home.html", chars=len(chars))
+        if chars:
+            return render_template("home.html", chars=len(chars))
+        else:
+            return render_template("home.html")
+        
 
 
 if __name__ == "__main__":
