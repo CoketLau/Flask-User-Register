@@ -1,7 +1,7 @@
 def characters():
     import string
 
-    characters = " " + string.ascii_letters + string.punctuation + string.digits
+    characters = string.printable + "ñ" + "Ñ"
     characters = list(characters)
 
     return characters
