@@ -62,6 +62,42 @@ def logout():
 
 
 
+@app.route("/del", methods=["POST", "GET"])
+def delete():
+    if "user" in session:
+        user = session["user"]
+
+        if user == "Admin":
+            if request.method == "POST":
+                deletion = request.form["deletion"]
+
+                found_user = Users.query.filter_by(name=deletion).first()
+                if found_user:
+                    if found_user.name == "Admin":
+                        flash("You can't delete Admin!")
+                        return render_template("delete.html")
+                    else:
+                        Data_Base.session.delete(found_user)
+                        Data_Base.session.commit()
+
+                        flash("User deleted succesfully!", "info")
+                        return redirect(url_for("view"))
+                else:
+                    flash("User not found", "info")
+                    return redirect(url_for("view"))
+            else:
+                return render_template("delete.html")
+        
+        else:
+            flash("You are not an admin")
+            return redirect(url_for("user"))
+    
+    else:
+        flash("Please log in")
+        return redirect(url_for("login"))
+
+
+
 @app.route("/user", methods=["POST", "GET"])
 def user():
     email = None #Hay que declarar la variable email
