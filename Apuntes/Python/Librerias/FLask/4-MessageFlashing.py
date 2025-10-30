@@ -1,11 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = "key" #Dar una key pq ns
-app.permanent_session_lifetime = timedelta(days=5) #Ponemos cuanto tiempo se guarda el data permanente
+app.permanent_session_lifetime = timedelta(minutes=5)
 
-#La session normal dura solamente el tiempo que tengamos abierto el browser
 
 @app.route("/")
 def home():
@@ -16,7 +15,7 @@ def login():
     if request.method == "POST":
         session.permanent = True
         user = request.form["name"]
-        session["user"] = user #Guarda user en session
+        session["user"] = user
 
         return redirect(url_for("user"))
     else:
@@ -27,14 +26,16 @@ def login():
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
-    session.pop("user", None)
+    if "user" in session:
+        session.pop("user", None)
+        flash("You have logged out!", "info")
     return redirect(url_for("login"))
 
 @app.route("/User")
 def user():
-    if "user" in session: #miramos si existe user
+    if "user" in session:
         user = session["user"]
-        return f"<h1>Hola {user}!</h1>"
+        return render_template("usuario.html", contenido=user)
     else:
         return redirect(url_for("login"))
 

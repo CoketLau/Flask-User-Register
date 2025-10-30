@@ -69,14 +69,23 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>¡HOLA {{contenido}}!</h1>
-    <p>¡Bienvenido!</p>
-    <div class="glow">🚀 Flask está corriendo correctamente</div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p>{{ msg }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-    {% for x in range(0,10) %}
-        <p>PYTHON EN HTML</p>
-    {% endfor %}
+  <div class="container">
+    <h1>¡Hola {{contenido}}!</h1>
+    <p>¡Bienvenido!</p>
+    <form action="" method="post">
+      <input type="email" name="email" placeholder="Enter email" value="{{email or ''}}">
+      <input type="submit" value="submit">
+    </form>
+    <div class="glow">🚀 Flask está corriendo correctamente</div>
+    <a href="/logout">logout</a>
 
   </div>
 </body>
