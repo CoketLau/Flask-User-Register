@@ -3,7 +3,6 @@ from flask import render_template, Flask, redirect, url_for
 app = Flask(__name__) #Ahora mismo name es "Básico.py, pero si importamos este archivo __name__ es solo "Básico"
 
 
-
 #Lo de abajo crea una ruta
 @app.route("/") #Sin poner nada te mandará a la casa, pero si pones por ejemplo (/Home) solo te mandará a Home si lo pones manual
 def home(): #Definimos la funcion que devuelve el archivo HTML
