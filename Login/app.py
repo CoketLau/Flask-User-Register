@@ -1,11 +1,13 @@
 from flask import render_template, redirect, url_for, session, flash, Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
+import os
 
 app = Flask(__name__)
 app.secret_key = "key"
 app.permanent_session_lifetime = timedelta(minutes=10)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Database.sqlite3"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{app.root_path}/DataBase/Database.sqlite3"    
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
