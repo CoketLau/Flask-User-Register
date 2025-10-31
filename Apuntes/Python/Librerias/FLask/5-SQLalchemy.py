@@ -70,8 +70,8 @@ def delete():
         if user == "Admin":
             if request.method == "POST":
                 deletion = request.form["deletion"]
-
                 found_user = Users.query.filter_by(name=deletion).first()
+                
                 if found_user:
                     if found_user.name == "Admin":
                         flash("You can't delete Admin!")
