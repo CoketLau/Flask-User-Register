@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, session, render_template, flash
 from DataBase.models import app
 
 
-bp = Blueprint("delete", __name__)
+bp = Blueprint("logout", __name__)
 
 
 @app.route("/logout")

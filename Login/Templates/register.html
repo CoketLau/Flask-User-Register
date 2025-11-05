@@ -1,130 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            font-family: 'Inter', sans-serif;
-            color: #fff;
-        }
+  :root{
+    --container-w: 340px;
+    --accent: #00ffff;
+  }
 
-        .register-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 40px;
-            width: 340px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-            animation: fadeIn 0.8s ease-out;
-        }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    font-family: 'Inter', sans-serif;
+    color:#fff;
+  }
 
-        h1 {
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            color: #00ffff;
-            text-shadow: 0 0 8px #00ffff80;
-        }
+  .register-container{
+    width:var(--container-w);
+    padding:40px;
+    text-align:center;
+    border-radius:16px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
+    animation:fadeIn .8s ease-out;
+  }
 
-        form input {
-            width: 100%;
-            padding: 12px 14px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 8px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
+  h1{
+    margin-bottom:25px;
+    color:var(--accent);
+    text-shadow: 0 0 8px #00ffff80;
+    letter-spacing:1px;
+  }
 
-        form input::placeholder {
-            color: #bbb;
-        }
+  /* Generic input styling */
+  .field, input[type="text"], input[type="password"], input[type="submit"]{
+    width:100%;
+    padding:12px 14px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    background: rgba(255,255,255,0.15);
+    color:#fff;
+    font-size:15px;
+    outline:none;
+    transition: all .25s ease;
+  }
 
-        form input:focus {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 10px #00ffff80;
-        }
+  .field::placeholder{color:#bbb;}
+  .field:focus, input[type="text"]:focus, input[type="password"]:focus {
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 0 10px #00ffff80;
+  }
 
-        input[type="submit"] {
-            background: #00ffff;
-            color: #0f2027;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+  /* Password field layout */
+  .password-row {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin:10px 0;
+  }
+  .password-row input {
+    margin:0;
+    border-radius:8px;
+  }
 
-        input[type="submit"]:hover {
-            background: #00d4ff;
-            transform: scale(1.05);
-        }
+  .toggle-password {
+    flex: 0 0 40px;
+    height: 40px;
+    border-radius:8px;
+    border:none;
+    background: rgba(255,255,255,0.06);
+    color:#ccc;
+    font-size:16px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition: color .15s, background .15s, transform .08s;
+  }
+  .toggle-password:hover {
+    color: var(--accent);
+    background: rgba(0,255,255,0.04);
+    transform: translateY(-1px);
+  }
 
-        .flash-message {
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff6b6b;
-            font-weight: 600;
-            animation: slideDown 0.5s ease;
-        }
+  input[type="submit"]{
+    background: var(--accent);
+    color:#0f2027;
+    font-weight:600;
+    cursor:pointer;
+  }
+  input[type="submit"]:hover{
+    background:#00d4ff;
+    transform:scale(1.05);
+  }
 
-        .login-link {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #00ffff;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+  /* Flash messages */
+  .flash-message{
+    margin-bottom:12px;
+    padding:10px;
+    border-radius:8px;
+    background: rgba(255,0,0,0.2);
+    color:#ff6b6b;
+    font-weight:600;
+    animation:slideDown .35s ease;
+  }
 
-        .login-link:hover {
-            color: #00d4ff;
-            text-shadow: 0 0 8px #00ffff80;
-        }
+  .login-link{
+    display:inline-block;
+    margin-top:15px;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .login-link:hover{
+    color:#00d4ff;
+    text-shadow:0 0 8px #00ffff80;
+  }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+  @keyframes fadeIn{ from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+  @keyframes slideDown{ from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+</style>
 </head>
 <body>
-    <div class="register-container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for msg in messages %}
-                    <div class="flash-message">{{ msg }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-        <h1>Create Account</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="flash-message">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-        <form action="" method="post">
-            <input type="text" name="user" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Register">
-        </form>
+  <div class="register-container">
+    <h1>Create Account</h1>
 
-        <a href="/login" class="login-link">Already have an account? Log in →</a>
-    </div>
+    <form action="" method="post">
+      <input class="field" type="text" name="user" placeholder="Username" required>
+
+      <div class="password-row">
+        <input class="field" id="password" type="password" name="password" placeholder="Password" required>
+        <button class="toggle-password" type="button" aria-label="Show password" id="pwdToggle">👁️</button>
+      </div>
+
+      <input class="field" type="submit" value="Register">
+    </form>
+
+    <a class="login-link" href="/login">Already have an account? Log in →</a>
+  </div>
+
+<script>
+  (function(){
+    const btn = document.getElementById('pwdToggle');
+    const pwd = document.getElementById('password');
+
+    btn.addEventListener('click', function(){
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        btn.textContent = '🙈';
+        btn.setAttribute('aria-label','Hide password');
+      } else {
+        pwd.type = 'password';
+        btn.textContent = '👁️';
+        btn.setAttribute('aria-label','Show password');
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>
