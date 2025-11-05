@@ -1,30 +1,7 @@
 from flask import render_template, redirect, url_for, session, flash, Flask, request
-from flask_sqlalchemy import SQLAlchemy
-from datetime import timedelta
-import os
+from DataBase.models import app, db, Users
 
-app = Flask(__name__)
-app.secret_key = "key"
-app.permanent_session_lifetime = timedelta(minutes=10)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{app.root_path}/DataBase/Database.sqlite3"    
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-
-db = SQLAlchemy(app)
-
-
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    password = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-
-    def __init__(self, name, password, email=""):
-        self.name = name
-        self.password = password
-        self.email = email
-
+app.root_path = "Login"
 
 
 @app.route("/")
@@ -88,19 +65,40 @@ def login():
                     
                     return render_template("user.html", user=user, email=email, password=password)
                 else:
-                    flash("Incorrect password", "info")
-                    return render_template("login.html", msg="Incorrect password")
+                    flash("Incorrect info", "info")
+                    return render_template("login.html")
 
             else:
-                session["user"] = user
-                session["password"] = password
-
-                db.session.add(Users(user, password, ""))
-                db.session.commit()
-                return redirect(url_for("user"))
+                flash("Incorrect info", "info")
+                return render_template("login.html")
             
         else:
             return render_template("login.html")
+
+
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        user = request.form["user"]
+        password = request.form["password"]
+        found_User = Users.query.filter_by(name=user).first()
+
+        if found_User:
+            flash("Username in use", "info")
+            return render_template("register.html")
+        else:
+            session["user"] = user
+            session["password"] = password
+            
+            New_User = Users(user, password, email="")
+
+            db.session.add(New_User)
+            db.session.commit()
+
+            return redirect(url_for("user"))
+    else:
+        return render_template("register.html")
 
 
 

@@ -4,124 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <style>
-        /* --- Reset & Base Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
         body {
-            background-color: #f4f6f8;
-            color: #333;
+            margin: 0;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            align-items: center;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 40px;
+            width: 340px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff80;
         }
 
-        /* --- Flash Messages --- */
-        .flash-message {
-            background-color: #ffeaea;
-            color: #d93025;
-            padding: 10px 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            border-left: 5px solid #d93025;
+        form input {
             width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        /* --- Form Styling --- */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #1a73e8;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
             outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        form input::placeholder {
+            color: #bbb;
+        }
+
+        form input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 10px #00ffff80;
         }
 
         input[type="submit"] {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 1rem;
+            background: #00ffff;
+            color: #0f2027;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: 0.3s;
         }
 
         input[type="submit"]:hover {
-            background-color: #155ab6;
+            background: #00d4ff;
+            transform: scale(1.05);
         }
 
-        /* --- Footer link (optional) --- */
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #555;
+        .flash-message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            font-weight: 600;
+            animation: slideDown 0.5s ease;
         }
 
-        .footer a {
-            color: #1a73e8;
+        .register-link {
+            display: inline-block;
+            margin-top: 15px;
             text-decoration: none;
-            font-weight: 500;
+            color: #00ffff;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        .register-link:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 8px #00ffff80;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 
 <body>
-    <h1>Login</h1>
+    <div class="login-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash-message">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-    <!-- Flash messages -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for msg in messages %}
-                <div class="flash-message">{{ msg }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+        <h1>Welcome Back</h1>
 
-    <!-- Login Form -->
-    <form action="" method="post">
-        <input type="text" placeholder="User" name="user" required>
-        <input type="text" placeholder="Password" name="password" required>
-        <input type="submit" value="SUBMIT">
-    </form>
+        <form action="" method="post">
+            <input type="text" placeholder="Username" name="user" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <input type="submit" value="Login">
+        </form>
+
+        <a href="/register" class="register-link">Don't have an account? Register →</a>
+    </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">

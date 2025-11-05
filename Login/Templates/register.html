@@ -3,48 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Page</title>
+    <title>Register</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-        /* Base setup */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
+            margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             font-family: 'Inter', sans-serif;
             color: #fff;
-            padding: 20px;
         }
 
-        .user-container {
-            background: rgba(255, 255, 255, 0.08);
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             border-radius: 16px;
             padding: 40px;
-            width: 360px;
+            width: 340px;
             text-align: center;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
             animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             letter-spacing: 1px;
             color: #00ffff;
             text-shadow: 0 0 8px #00ffff80;
         }
 
-        /* Flash message */
+        form input {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        form input::placeholder {
+            color: #bbb;
+        }
+
+        form input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 10px #00ffff80;
+        }
+
+        input[type="submit"] {
+            background: #00ffff;
+            color: #0f2027;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #00d4ff;
+            transform: scale(1.05);
+        }
+
         .flash-message {
             margin-bottom: 20px;
             padding: 10px;
@@ -55,62 +81,18 @@
             animation: slideDown 0.5s ease;
         }
 
-        /* Form */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        input[type="email"],
-        input[type="text"],
-        input[type="password"] {
-            padding: 12px 14px;
-            border: none;
-            border-radius: 8px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-
-        input::placeholder {
-            color: #bbb;
-        }
-
-        input:focus {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 10px #00ffff80;
-        }
-
-        input[type="submit"] {
-            background: #00ffff;
-            color: #0f2027;
+        .login-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #00ffff;
             font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
             transition: 0.3s;
         }
 
-        input[type="submit"]:hover {
-            background: #00d4ff;
-            transform: scale(1.05);
-        }
-
-        /* Logout link */
-        a {
-            display: inline-block;
-            margin-top: 25px;
-            color: #ff6b6b;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        a:hover {
-            color: #ff8787;
-            text-shadow: 0 0 8px #ff6b6b80;
+        .login-link:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 8px #00ffff80;
         }
 
         @keyframes fadeIn {
@@ -124,9 +106,8 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="user-container">
+    <div class="register-container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
@@ -135,15 +116,15 @@
             {% endif %}
         {% endwith %}
 
-        <h1>Welcome, {{ user }} 👋</h1>
+        <h1>Create Account</h1>
 
         <form action="" method="post">
-            <input type="email" placeholder="Enter Email" name="email" value="{{ email or '' }}" required>
-            <input type="text" name="password" value="{{ password }}" placeholder="Password">
-            <input type="submit" value="Update Info">
+            <input type="text" name="user" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Register">
         </form>
 
-        <a href="/logout">Logout →</a>
+        <a href="/login" class="login-link">Already have an account? Log in →</a>
     </div>
 </body>
 </html>
