@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, session, render_template, flash
 from DataBase.models import app, Users
 
 
-bp = Blueprint("view", __name__, template_folder="Templates")
+bp = Blueprint("view", __name__, template_folder="../Templates")
 
 
 @app.route("/view")
