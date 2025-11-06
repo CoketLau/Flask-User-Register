@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, session, request, render_templat
 from DataBase.models import app, Users
 
 
-bp = Blueprint("login", __name__, template_folder="Templates")
+bp = Blueprint("login", __name__, template_folder="../Templates")
 
 
 @app.route("/login", methods=["POST", "GET"])
