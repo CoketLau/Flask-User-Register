@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, url_for, session, request, render_template, flash
 from DataBase.models import app, Users, db
 
-bp = Blueprint("user", __name__, template_folder="Templates")
+bp = Blueprint("user", __name__, template_folder="../Templates")
 
 
 @app.route("/user", methods=["POST", "GET"])
