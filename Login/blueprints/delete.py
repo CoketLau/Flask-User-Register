@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, session, request, render_templat
 from DataBase.models import app, Users, db
 
 
-bp = Blueprint("delete", __name__)
+bp = Blueprint("delete", __name__, template_folder="Templates")
 
 
 @app.route("/delete", methods=["POST", "GET"])
